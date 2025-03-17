@@ -1,0 +1,4 @@
+import welcomeScreen;
+
+
+welcomeScreen.welcomeWindow();
