@@ -1,0 +1,4 @@
+photo = tk.PhotoImage(file="image.gif")
+
+image_label = tk.Label(root, image=Photo)
+image_label.pack
