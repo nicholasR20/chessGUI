@@ -1,10 +1,10 @@
 import tkinter as tk;
 import positions
-
+pieceSelected=False
 
 
 def play():
-
+    
     # create a Window called "root"
     root = tk.Tk();
     root.configure(bg="blue");
@@ -118,143 +118,178 @@ def play():
     placeButtonText = "          \n";
 
 
-    def placeButtonClicked(letter, number): #when a place on the board is clicked
+    def placeButtonClicked(letter, number, piece): #when a place on the board is clicked
+        global pieceSelected;
+        global pieceSelectedLocation;
         print(letter + ",", number);
+        if not pieceSelected:
+            if piece != none:
+                #create label
+                var = tk.StringVar();  # method needed to update strings when buttons are clicked
+                var.set(letter+str(number)+" has been selected.\nNow click on the square you want to move this piece to.");  # setting the variable var to numStr (puts value in label)
+                label = tk.Label(root, textvariable=var, font=labelFont, bg=labelBgColor, fg=labelFgColor);
+                label.place(x=30, y=20);  # label is in the window but not the frame
+                pieceSelected = piece;
+                pieceSelectedLocation = (letter, number);
+        else:
+            pieceSelected = False;
 
+
+    
 
     #set button sizes
     buttonHeight = 10;
     buttonWidth = 10;
 
     #create column a buttons
-    a1 = tk.Button(dbframe, image=row1[0], command=placeButtonClicked("a", 1), font=buttonFont, bg=placeButton1BgColor, fg=placeButton1FgColor);
-    a2 = tk.Button(dbframe, image=row2[0], command=placeButtonClicked("a", 2), font=buttonFont, bg=placeButton2BgColor, fg=placeButton2FgColor);
-    a3 = tk.Button(dbframe, image=row3[0], command=placeButtonClicked("a", 3), font=buttonFont, bg=placeButton1BgColor, fg=placeButton1FgColor);
-    a4 = tk.Button(dbframe, image=row4[0], command=placeButtonClicked("a", 4), font=buttonFont, bg=placeButton2BgColor, fg=placeButton2FgColor);
-    a5 = tk.Button(dbframe, image=row5[0], command=placeButtonClicked("a", 5), font=buttonFont, bg=placeButton1BgColor, fg=placeButton1FgColor);
-    a6 = tk.Button(dbframe, image=row6[0], command=placeButtonClicked("a", 6), font=buttonFont, bg=placeButton2BgColor, fg=placeButton2FgColor);
-    a7 = tk.Button(dbframe, image=row7[0], command=placeButtonClicked("a", 7), font=buttonFont, bg=placeButton1BgColor, fg=placeButton1FgColor);
-    a8 = tk.Button(dbframe, image=row8[0], command=placeButtonClicked("a", 8), font=buttonFont, bg=placeButton2BgColor, fg=placeButton2FgColor);
+    a1 = tk.Button(dbframe, image=row1[0], command=lambda: placeButtonClicked("a", 1, row1[0]), font=buttonFont, bg=placeButton1BgColor, fg=placeButton1FgColor);
+    a2 = tk.Button(dbframe, image=row2[0], command=lambda: placeButtonClicked("a", 2, row2[0]), font=buttonFont, bg=placeButton2BgColor, fg=placeButton2FgColor);
+    a3 = tk.Button(dbframe, image=row3[0], command=lambda: placeButtonClicked("a", 3, row3[0]), font=buttonFont, bg=placeButton1BgColor, fg=placeButton1FgColor);
+    a4 = tk.Button(dbframe, image=row4[0], command=lambda: placeButtonClicked("a", 4, row4[0]), font=buttonFont, bg=placeButton2BgColor, fg=placeButton2FgColor);
+    a5 = tk.Button(dbframe, image=row5[0], command=lambda: placeButtonClicked("a", 5, row5[0]), font=buttonFont, bg=placeButton1BgColor, fg=placeButton1FgColor);
+    a6 = tk.Button(dbframe, image=row6[0], command=lambda: placeButtonClicked("a", 6, row6[0]), font=buttonFont, bg=placeButton2BgColor, fg=placeButton2FgColor);
+    a7 = tk.Button(dbframe, image=row7[0], command=lambda: placeButtonClicked("a", 7, row7[0]), font=buttonFont, bg=placeButton1BgColor, fg=placeButton1FgColor);
+    a8 = tk.Button(dbframe, image=row8[0], command=lambda: placeButtonClicked("a", 8, row8[0]), font=buttonFont, bg=placeButton2BgColor, fg=placeButton2FgColor);
 
     # create column b buttons
-    b1 = tk.Button(dbframe, image=row1[1], command=placeButtonClicked("b", 1), font=buttonFont, bg=placeButton2BgColor, fg=placeButton2FgColor);
-    b2 = tk.Button(dbframe, image=row2[1], command=placeButtonClicked("b", 2), font=buttonFont, bg=placeButton1BgColor, fg=placeButton1FgColor);
-    b3 = tk.Button(dbframe, image=row3[1], command=placeButtonClicked("b", 3), font=buttonFont, bg=placeButton2BgColor, fg=placeButton2FgColor);
-    b4 = tk.Button(dbframe, image=row4[1], command=placeButtonClicked("b", 4), font=buttonFont, bg=placeButton1BgColor, fg=placeButton1FgColor);
-    b5 = tk.Button(dbframe, image=row5[1], command=placeButtonClicked("b", 5), font=buttonFont, bg=placeButton2BgColor, fg=placeButton2FgColor);
-    b6 = tk.Button(dbframe, image=row6[1], command=placeButtonClicked("b", 6), font=buttonFont, bg=placeButton1BgColor, fg=placeButton1FgColor);
-    b7 = tk.Button(dbframe, image=row7[1], command=placeButtonClicked("b", 7), font=buttonFont, bg=placeButton2BgColor, fg=placeButton2FgColor);
-    b8 = tk.Button(dbframe, image=row8[1], command=placeButtonClicked("b", 8), font=buttonFont, bg=placeButton1BgColor, fg=placeButton1FgColor);
+    b1 = tk.Button(dbframe, image=row1[1], command=lambda: placeButtonClicked("b", 1, row1[1]), font=buttonFont, bg=placeButton2BgColor, fg=placeButton2FgColor);
+    b2 = tk.Button(dbframe, image=row2[1], command=lambda: placeButtonClicked("b", 2, row2[1]), font=buttonFont, bg=placeButton1BgColor, fg=placeButton1FgColor);
+    b3 = tk.Button(dbframe, image=row3[1], command=lambda: placeButtonClicked("b", 3, row3[1]), font=buttonFont, bg=placeButton2BgColor, fg=placeButton2FgColor);
+    b4 = tk.Button(dbframe, image=row4[1], command=lambda: placeButtonClicked("b", 4, row4[1]), font=buttonFont, bg=placeButton1BgColor, fg=placeButton1FgColor);
+    b5 = tk.Button(dbframe, image=row5[1], command=lambda: placeButtonClicked("b", 5, row5[1]), font=buttonFont, bg=placeButton2BgColor, fg=placeButton2FgColor);
+    b6 = tk.Button(dbframe, image=row6[1], command=lambda: placeButtonClicked("b", 6, row6[1]), font=buttonFont, bg=placeButton1BgColor, fg=placeButton1FgColor);
+    b7 = tk.Button(dbframe, image=row7[1], command=lambda: placeButtonClicked("b", 7, row7[1]), font=buttonFont, bg=placeButton2BgColor, fg=placeButton2FgColor);
+    b8 = tk.Button(dbframe, image=row8[1], command=lambda: placeButtonClicked("b", 8, row8[1]), font=buttonFont, bg=placeButton1BgColor, fg=placeButton1FgColor);
 
     # create column c buttons
-    c1 = tk.Button(dbframe, image=row1[2], command=placeButtonClicked("c", 1), font=buttonFont,
+    c1 = tk.Button(dbframe, image=row1[2], command=lambda: placeButtonClicked("c", 1, row1[2]), font=buttonFont,
                    bg=placeButton1BgColor, fg=placeButton1FgColor);
-    c2 = tk.Button(dbframe, image=row2[2], command=placeButtonClicked("c", 2), font=buttonFont,
+    c2 = tk.Button(dbframe, image=row2[2], command=lambda: placeButtonClicked("c", 2, row2[2]), font=buttonFont,
                    bg=placeButton2BgColor, fg=placeButton2FgColor);
-    c3 = tk.Button(dbframe, image=row3[2], command=placeButtonClicked("c", 3), font=buttonFont,
+    c3 = tk.Button(dbframe, image=row3[2], command=lambda: placeButtonClicked("c", 3, row3[2]), font=buttonFont,
                    bg=placeButton1BgColor, fg=placeButton1FgColor);
-    c4 = tk.Button(dbframe, image=row4[2], command=placeButtonClicked("c", 4), font=buttonFont,
+    c4 = tk.Button(dbframe, image=row4[2], command=lambda: placeButtonClicked("c", 4, row4[2]), font=buttonFont,
                    bg=placeButton2BgColor, fg=placeButton2FgColor);
-    c5 = tk.Button(dbframe, image=row5[2], command=placeButtonClicked("c", 5), font=buttonFont,
+    c5 = tk.Button(dbframe, image=row5[2], command=lambda: placeButtonClicked("c", 5, row5[2]), font=buttonFont,
                    bg=placeButton1BgColor, fg=placeButton1FgColor);
-    c6 = tk.Button(dbframe, image=row6[2], command=placeButtonClicked("c", 6), font=buttonFont,
+    c6 = tk.Button(dbframe, image=row6[2], command=lambda: placeButtonClicked("c", 6, row6[2]), font=buttonFont,
                    bg=placeButton2BgColor, fg=placeButton2FgColor);
-    c7 = tk.Button(dbframe, image=row7[2], command=placeButtonClicked("c", 7), font=buttonFont,
+    c7 = tk.Button(dbframe, image=row7[2], command=lambda: placeButtonClicked("c", 7, row7[2]), font=buttonFont,
                    bg=placeButton1BgColor, fg=placeButton1FgColor);
-    c8 = tk.Button(dbframe, image=row8[2], command=placeButtonClicked("c", 8), font=buttonFont,
+    c8 = tk.Button(dbframe, image=row8[2], command=lambda: placeButtonClicked("c", 8, row8[2]), font=buttonFont,
                    bg=placeButton2BgColor, fg=placeButton2FgColor);
 
     # create column d buttons
-    d1 = tk.Button(dbframe, image=row1[3], command=placeButtonClicked("d", 1), font=buttonFont,
+    d1 = tk.Button(dbframe, image=row1[3], command=lambda: placeButtonClicked("d", 1, row1[3]), font=buttonFont,
                    bg=placeButton2BgColor, fg=placeButton2FgColor);
-    d2 = tk.Button(dbframe, image=row2[3], command=placeButtonClicked("d", 2), font=buttonFont,
+    d2 = tk.Button(dbframe, image=row2[3], command=lambda: placeButtonClicked("d", 2, row2[3]), font=buttonFont,
                    bg=placeButton1BgColor, fg=placeButton1FgColor);
-    d3 = tk.Button(dbframe, image=row3[3], command=placeButtonClicked("d", 3), font=buttonFont,
+    d3 = tk.Button(dbframe, image=row3[3], command=lambda: placeButtonClicked("d", 3, row3[3]), font=buttonFont,
                    bg=placeButton2BgColor, fg=placeButton2FgColor);
-    d4 = tk.Button(dbframe, image=row4[3], command=placeButtonClicked("d", 4), font=buttonFont,
+    d4 = tk.Button(dbframe, image=row4[3], command=lambda: placeButtonClicked("d", 4, row4[3]), font=buttonFont,
                    bg=placeButton1BgColor, fg=placeButton1FgColor);
-    d5 = tk.Button(dbframe, image=row5[3], command=placeButtonClicked("d", 5), font=buttonFont,
+    d5 = tk.Button(dbframe, image=row5[3], command=lambda: placeButtonClicked("d", 5, row5[3]), font=buttonFont,
                    bg=placeButton2BgColor, fg=placeButton2FgColor);
-    d6 = tk.Button(dbframe, image=row6[3], command=placeButtonClicked("d", 6), font=buttonFont,
+    d6 = tk.Button(dbframe, image=row6[3], command=lambda: placeButtonClicked("d", 6, row6[3]), font=buttonFont,
                    bg=placeButton1BgColor, fg=placeButton1FgColor);
-    d7 = tk.Button(dbframe, image=row7[3], command=placeButtonClicked("d", 7), font=buttonFont,
+    d7 = tk.Button(dbframe, image=row7[3], command=lambda: placeButtonClicked("d", 7, row7[3]), font=buttonFont,
                    bg=placeButton2BgColor, fg=placeButton2FgColor);
-    d8 = tk.Button(dbframe, image=row8[3], command=placeButtonClicked("d", 8), font=buttonFont,
+    d8 = tk.Button(dbframe, image=row8[3], command=lambda: placeButtonClicked("d", 8, row8[3]), font=buttonFont,
                    bg=placeButton1BgColor, fg=placeButton1FgColor);
 
     # create column e buttons
-    e1 = tk.Button(dbframe, image=row1[4], command=placeButtonClicked("e", 1), font=buttonFont,
+    e1 = tk.Button(dbframe, image=row1[4], command=lambda: placeButtonClicked("e", 1, row1[4]), font=buttonFont,
                    bg=placeButton1BgColor, fg=placeButton1FgColor);
-    e2 = tk.Button(dbframe, image=row2[4], command=placeButtonClicked("e", 2), font=buttonFont,
+    e2 = tk.Button(dbframe, image=row2[4], command=lambda: placeButtonClicked("e", 2, row2[4]), font=buttonFont,
                    bg=placeButton2BgColor, fg=placeButton2FgColor);
-    e3 = tk.Button(dbframe, image=row3[4], command=placeButtonClicked("e", 3), font=buttonFont,
+    e3 = tk.Button(dbframe, image=row3[4], command=lambda: placeButtonClicked("e", 3, row3[4]), font=buttonFont,
                    bg=placeButton1BgColor, fg=placeButton1FgColor);
-    e4 = tk.Button(dbframe, image=row4[4], command=placeButtonClicked("e", 4), font=buttonFont,
+    e4 = tk.Button(dbframe, image=row4[4], command=lambda: placeButtonClicked("e", 4, row4[4]), font=buttonFont,
                    bg=placeButton2BgColor, fg=placeButton2FgColor);
-    e5 = tk.Button(dbframe, image=row5[4], command=placeButtonClicked("e", 5), font=buttonFont,
+    e5 = tk.Button(dbframe, image=row5[4], command=lambda: placeButtonClicked("e", 5, row5[4]), font=buttonFont,
                    bg=placeButton1BgColor, fg=placeButton1FgColor);
-    e6 = tk.Button(dbframe, image=row6[4], command=placeButtonClicked("e", 6), font=buttonFont,
+    e6 = tk.Button(dbframe, image=row6[4], command=lambda: placeButtonClicked("e", 6, row6[4]), font=buttonFont,
                    bg=placeButton2BgColor, fg=placeButton2FgColor);
-    e7 = tk.Button(dbframe, image=row7[4], command=placeButtonClicked("e", 7), font=buttonFont,
+    e7 = tk.Button(dbframe, image=row7[4], command=lambda: placeButtonClicked("e", 7, row7[4]), font=buttonFont,
                    bg=placeButton1BgColor, fg=placeButton1FgColor);
-    e8 = tk.Button(dbframe, image=row8[4], command=placeButtonClicked("e", 8), font=buttonFont,
+    e8 = tk.Button(dbframe, image=row8[4], command=lambda: placeButtonClicked("e", 8, row8[4]), font=buttonFont,
                    bg=placeButton2BgColor, fg=placeButton2FgColor);
 
     # create column f buttons
-    f1 = tk.Button(dbframe, image=row1[5], command=placeButtonClicked("f", 1), font=buttonFont,
+    f1 = tk.Button(dbframe, image=row1[5], command=lambda: placeButtonClicked("f", 1, row1[5]), font=buttonFont,
                    bg=placeButton2BgColor, fg=placeButton2FgColor);
-    f2 = tk.Button(dbframe, image=row2[5], command=placeButtonClicked("f", 2), font=buttonFont,
+    f2 = tk.Button(dbframe, image=row2[5], command=lambda: placeButtonClicked("f", 2, row2[5]), font=buttonFont,
                    bg=placeButton1BgColor, fg=placeButton1FgColor);
-    f3 = tk.Button(dbframe, image=row3[5], command=placeButtonClicked("f", 3), font=buttonFont,
+    f3 = tk.Button(dbframe, image=row3[5], command=lambda: placeButtonClicked("f", 3, row3[5]), font=buttonFont,
                    bg=placeButton2BgColor, fg=placeButton2FgColor);
-    f4 = tk.Button(dbframe, image=row4[5], command=placeButtonClicked("f", 4), font=buttonFont,
+    f4 = tk.Button(dbframe, image=row4[5], command=lambda: placeButtonClicked("f", 4, row4[5]), font=buttonFont,
                    bg=placeButton1BgColor, fg=placeButton1FgColor);
-    f5 = tk.Button(dbframe, image=row5[5], command=placeButtonClicked("f", 5), font=buttonFont,
+    f5 = tk.Button(dbframe, image=row5[5], command=lambda: placeButtonClicked("f", 5, row5[5]), font=buttonFont,
                    bg=placeButton2BgColor, fg=placeButton2FgColor);
-    f6 = tk.Button(dbframe, image=row6[5], command=placeButtonClicked("f", 6), font=buttonFont,
+    f6 = tk.Button(dbframe, image=row6[5], command=lambda: placeButtonClicked("f", 6, row6[5]), font=buttonFont,
                    bg=placeButton1BgColor, fg=placeButton1FgColor);
-    f7 = tk.Button(dbframe, image=row7[5], command=placeButtonClicked("f", 7), font=buttonFont,
+    f7 = tk.Button(dbframe, image=row7[5], command=lambda: placeButtonClicked("f", 7, row7[5]), font=buttonFont,
                    bg=placeButton2BgColor, fg=placeButton2FgColor);
-    f8 = tk.Button(dbframe, image=row8[5], command=placeButtonClicked("f", 8), font=buttonFont,
+    f8 = tk.Button(dbframe, image=row8[5], command=lambda: placeButtonClicked("f", 8, row8[5]), font=buttonFont,
                    bg=placeButton1BgColor, fg=placeButton1FgColor);
 
     # create column g buttons
-    g1 = tk.Button(dbframe, image=row1[6], command=placeButtonClicked("g", 1), font=buttonFont,
+    g1 = tk.Button(dbframe, image=row1[6], command=lambda: placeButtonClicked("g", 1, row1[6]), font=buttonFont,
                    bg=placeButton1BgColor, fg=placeButton1FgColor);
-    g2 = tk.Button(dbframe, image=row2[6], command=placeButtonClicked("g", 2), font=buttonFont,
+    g2 = tk.Button(dbframe, image=row2[6], command=lambda: placeButtonClicked("g", 2, row2[6]), font=buttonFont,
                    bg=placeButton2BgColor, fg=placeButton2FgColor);
-    g3 = tk.Button(dbframe, image=row3[6], command=placeButtonClicked("g", 3), font=buttonFont,
+    g3 = tk.Button(dbframe, image=row3[6], command=lambda: placeButtonClicked("g", 3, row3[6]), font=buttonFont,
                    bg=placeButton1BgColor, fg=placeButton1FgColor);
-    g4 = tk.Button(dbframe, image=row4[6], command=placeButtonClicked("g", 4), font=buttonFont,
+    g4 = tk.Button(dbframe, image=row4[6], command=lambda: placeButtonClicked("g", 4, row4[6]), font=buttonFont,
                    bg=placeButton2BgColor, fg=placeButton2FgColor);
-    g5 = tk.Button(dbframe, image=row5[6], command=placeButtonClicked("g", 5), font=buttonFont,
+    g5 = tk.Button(dbframe, image=row5[6], command=lambda: placeButtonClicked("g", 5, row5[6]), font=buttonFont,
                    bg=placeButton1BgColor, fg=placeButton1FgColor);
-    g6 = tk.Button(dbframe, image=row6[6], command=placeButtonClicked("g", 6), font=buttonFont,
+    g6 = tk.Button(dbframe, image=row6[6], command=lambda: placeButtonClicked("g", 6, row6[6]), font=buttonFont,
                    bg=placeButton2BgColor, fg=placeButton2FgColor);
-    g7 = tk.Button(dbframe, image=row7[6], command=placeButtonClicked("g", 7), font=buttonFont,
+    g7 = tk.Button(dbframe, image=row7[6], command=lambda: placeButtonClicked("g", 7, row7[6]), font=buttonFont,
                    bg=placeButton1BgColor, fg=placeButton1FgColor);
-    g8 = tk.Button(dbframe, image=row8[6], command=placeButtonClicked("g", 8), font=buttonFont,
+    g8 = tk.Button(dbframe, image=row8[6], command=lambda: placeButtonClicked("g", 8, row8[6]), font=buttonFont,
                    bg=placeButton2BgColor, fg=placeButton2FgColor);
 
     # create column h buttons
-    h1 = tk.Button(dbframe, image=row1[7], command=placeButtonClicked("h", 1), font=buttonFont,
+    h1 = tk.Button(dbframe, image=row1[7], command=lambda: placeButtonClicked("h", 1, row1[7]), font=buttonFont,
                    bg=placeButton2BgColor, fg=placeButton2FgColor);
-    h2 = tk.Button(dbframe, image=row2[7], command=placeButtonClicked("h", 2), font=buttonFont,
+    h2 = tk.Button(dbframe, image=row2[7], command=lambda: placeButtonClicked("h", 2, row2[7]), font=buttonFont,
                    bg=placeButton1BgColor, fg=placeButton1FgColor);
-    h3 = tk.Button(dbframe, image=row3[7], command=placeButtonClicked("h", 3), font=buttonFont,
+    h3 = tk.Button(dbframe, image=row3[7], command=lambda: placeButtonClicked("h", 3, row3[7]), font=buttonFont,
                    bg=placeButton2BgColor, fg=placeButton2FgColor);
-    h4 = tk.Button(dbframe, image=row4[7], command=placeButtonClicked("h", 4), font=buttonFont,
+    h4 = tk.Button(dbframe, image=row4[7], command=lambda: placeButtonClicked("h", 4, row4[7]), font=buttonFont,
                    bg=placeButton1BgColor, fg=placeButton1FgColor);
-    h5 = tk.Button(dbframe, image=row5[7], command=placeButtonClicked("h", 5), font=buttonFont,
+    h5 = tk.Button(dbframe, image=row5[7], command=lambda: placeButtonClicked("h", 5, row5[7]), font=buttonFont,
                    bg=placeButton2BgColor, fg=placeButton2FgColor);
-    h6 = tk.Button(dbframe, image=row6[7], command=placeButtonClicked("h", 6), font=buttonFont,
+    h6 = tk.Button(dbframe, image=row6[7], command=lambda: placeButtonClicked("h", 6, row6[7]), font=buttonFont,
                    bg=placeButton1BgColor, fg=placeButton1FgColor);
-    h7 = tk.Button(dbframe, image=row7[7], command=placeButtonClicked("h", 7), font=buttonFont,
+    h7 = tk.Button(dbframe, image=row7[7], command=lambda: placeButtonClicked("h", 7, row7[7]), font=buttonFont,
                    bg=placeButton2BgColor, fg=placeButton2FgColor);
-    h8 = tk.Button(dbframe, image=row8[7], command=placeButtonClicked("h", 8), font=buttonFont,
+    h8 = tk.Button(dbframe, image=row8[7], command=lambda: placeButtonClicked("h", 8, row8[7]), font=buttonFont,
                    bg=placeButton1BgColor, fg=placeButton1FgColor);
+    
+    aLabel = tk.Button(dbframe, text="A", font=buttonFont, bg="black", fg="white");
+    bLabel = tk.Button(dbframe, text="B", font=buttonFont, bg="black", fg="white");
+    cLabel = tk.Button(dbframe, text="C", font=buttonFont, bg="black", fg="white");
+    dLabel = tk.Button(dbframe, text="D", font=buttonFont, bg="black", fg="white");
+    eLabel = tk.Button(dbframe, text="E", font=buttonFont, bg="black", fg="white");
+    fLabel = tk.Button(dbframe, text="F", font=buttonFont, bg="black", fg="white");
+    gLabel = tk.Button(dbframe, text="G", font=buttonFont, bg="black", fg="white");
+    hLabel = tk.Button(dbframe, text="H", font=buttonFont, bg="black", fg="white");
+
+    label1 = tk.Button(dbframe, text="1", font=buttonFont, bg="black", fg="white");
+    label2 = tk.Button(dbframe, text="2", font=buttonFont, bg="black", fg="white");
+    label3 = tk.Button(dbframe, text="3", font=buttonFont, bg="black", fg="white");
+    label4 = tk.Button(dbframe, text="4", font=buttonFont, bg="black", fg="white");
+    label5 = tk.Button(dbframe, text="5", font=buttonFont, bg="black", fg="white");
+    label6 = tk.Button(dbframe, text="6", font=buttonFont, bg="black", fg="white");
+    label7 = tk.Button(dbframe, text="7", font=buttonFont, bg="black", fg="white");
+    label8 = tk.Button(dbframe, text="8", font=buttonFont, bg="black", fg="white");
+
 
     #place a buttons
+    aLabel.grid(row=0, column=2, padx=1, pady=1);
     a1.grid(row=8, column=2, padx=1, pady=1);
     a2.grid(row=7, column=2, padx=1, pady=1);
     a3.grid(row=6, column=2, padx=1, pady=1);
@@ -265,6 +300,7 @@ def play():
     a8.grid(row=1, column=2, padx=1, pady=1);
 
     # place b buttons
+    bLabel.grid(row=0, column=3, padx=1, pady=1);
     b1.grid(row=8, column=3, padx=1, pady=1);
     b2.grid(row=7, column=3, padx=1, pady=1);
     b3.grid(row=6, column=3, padx=1, pady=1);
@@ -275,6 +311,7 @@ def play():
     b8.grid(row=1, column=3, padx=1, pady=1);
 
     # place c buttons
+    cLabel.grid(row=0, column=4, padx=1, pady=1);
     c1.grid(row=8, column=4, padx=1, pady=1);
     c2.grid(row=7, column=4, padx=1, pady=1);
     c3.grid(row=6, column=4, padx=1, pady=1);
@@ -285,6 +322,7 @@ def play():
     c8.grid(row=1, column=4, padx=1, pady=1);
 
     # place d buttons
+    dLabel.grid(row=0, column=5, padx=1, pady=1);
     d1.grid(row=8, column=5, padx=1, pady=1);
     d2.grid(row=7, column=5, padx=1, pady=1);
     d3.grid(row=6, column=5, padx=1, pady=1);
@@ -295,6 +333,7 @@ def play():
     d8.grid(row=1, column=5, padx=1, pady=1);
 
     #place e buttons
+    eLabel.grid(row=0, column=6, padx=1, pady=1);
     e1.grid(row=8, column=6, padx=1, pady=1);
     e2.grid(row=7, column=6, padx=1, pady=1);
     e3.grid(row=6, column=6, padx=1, pady=1);
@@ -305,6 +344,7 @@ def play():
     e8.grid(row=1, column=6, padx=1, pady=1);
 
     # place f buttons
+    fLabel.grid(row=0, column=7, padx=1, pady=1);
     f1.grid(row=8, column=7, padx=1, pady=1);
     f2.grid(row=7, column=7, padx=1, pady=1);
     f3.grid(row=6, column=7, padx=1, pady=1);
@@ -315,6 +355,7 @@ def play():
     f8.grid(row=1, column=7, padx=1, pady=1);
 
     # place g buttons
+    gLabel.grid(row=0, column=8, padx=1, pady=1);
     g1.grid(row=8, column=8, padx=1, pady=1);
     g2.grid(row=7, column=8, padx=1, pady=1);
     g3.grid(row=6, column=8, padx=1, pady=1);
@@ -325,6 +366,7 @@ def play():
     g8.grid(row=1, column=8, padx=1, pady=1);
 
     # place h buttons
+    hLabel.grid(row=0, column=9, padx=1, pady=1);
     h1.grid(row=8, column=9, padx=1, pady=1);
     h2.grid(row=7, column=9, padx=1, pady=1);
     h3.grid(row=6, column=9, padx=1, pady=1);
@@ -334,7 +376,15 @@ def play():
     h7.grid(row=2, column=9, padx=1, pady=1);
     h8.grid(row=1, column=9, padx=1, pady=1);
 
-
+    label1.grid(row=8, column=0, padx=1, pady=1);
+    label2.grid(row=7, column=0, padx=1, pady=1);
+    label3.grid(row=6, column=0, padx=1, pady=1);
+    label4.grid(row=5, column=0, padx=1, pady=1);
+    label5.grid(row=4, column=0, padx=1, pady=1);
+    label6.grid(row=3, column=0, padx=1, pady=1);
+    label7.grid(row=2, column=0, padx=1, pady=1);
+    label8.grid(row=1, column=0, padx=1, pady=1);
+    
 
 
     root.mainloop();
