@@ -63,9 +63,10 @@ def play():
     wRook1 = tk.PhotoImage(file="whiteRook1.gif");
     wRook2 = tk.PhotoImage(file="whiteRook2.gif");
 
+    #set the image for an empty space
     none = tk.PhotoImage(file="none.gif");
     
-
+    #set the piece names in each row
     row8 = [bRook1, bKnight1, bBishop1, bQueen, bKing, bBishop2, bKnight2, bRook2];
     row7 = [bPawn1, bPawn2, bPawn3, bPawn4, bPawn5, bPawn6, bPawn7, bPawn8];
     row6 = [none, none, none, none, none, none, none, none];
@@ -75,6 +76,7 @@ def play():
     row2 = [wPawn1, wPawn2, wPawn3, wPawn4, wPawn5, wPawn6, wPawn7, wPawn8];
     row1 = [wRook1, wKnight1, wBishop1, wQueen, wKing, wBishop2, wKnight2, wRook2];
 
+    #list of pieces by color and catagory
     whitePawns = [wPawn1, wPawn2, wPawn3, wPawn4, wPawn5, wPawn6, wPawn7, wPawn8];  # List of white pawns
     whiteNp = [wRook1, wKnight1, wBishop1, wQueen, wKing, wBishop2, wKnight2,
                wRook2];  # List of white non-pawn pieces
@@ -83,12 +85,15 @@ def play():
                bRook2];  # List of black non-pawns
     
 
-    letters = ["a", "b", "c", "d", "e", "f", "g", "h"];
-    numbers = [1, 2, 3, 4, 5, 6, 7, 8];
-    dead = [none, none, none, none];
+    letters = ["a", "b", "c", "d", "e", "f", "g", "h"]; #list of letters used a board coordinates
+    numbers = [1, 2, 3, 4, 5, 6, 7, 8]; #list of numbers used as board coordinates
+    # dead = [none, none, none, none]; #
+
+    #lists of queens that can be used to promote a pawn
     promoteWhite = [wPromotedPawn1, wPromotedPawn2, wPromotedPawn3, wPromotedPawn4, wPromotedPawn5, wPromotedPawn6, wPromotedPawn7, wPromotedPawn8];
     promoteBlack = [bPromotedPawn1, bPromotedPawn2, bPromotedPawn3, bPromotedPawn4, bPromotedPawn5, bPromotedPawn6, bPromotedPawn7, bPromotedPawn8]
 
+    #a big list of all the pieces on the board
     places = [row1, row2, row3, row4, row5, row6, row7, row8];
 
 
@@ -97,8 +102,8 @@ def play():
     allPieces = [whitePieces, blackPieces];  # Puts all pieces in a list
 
 
-    def printBoard():
-        print("");
+    def printBoard(): #function to test the places of the board
+        print(""); 
         print(row8);
         print(row7);
         print(row6);
@@ -145,11 +150,10 @@ def play():
     placeButton1FgColor = "white";
     placeButton2BgColor = "pink";
     placeButton2FgColor = "white";
-
     placeButton3BgColor = "black";
     placeButton3FgColor = "white";
 
-    def updateSidePanel():
+    def updateSidePanel(): #updates the buttons on the side panel
         text1 = tk.Button(insideFrame, text="Promote A Pawn:", font=("tkDefaultFont", 18), bg=placeButton3BgColor, fg=placeButton3FgColor);
         text1.grid(row=1, column=1, padx=1, pady=1);
         promoteWhiteButton = tk.Button(insideFrame1, image=promoteWhite[0], command=lambda: promoteButtonClicked(promoteWhite[0], "White"), font=buttonFont, bg=placeButton1BgColor, fg=placeButton1FgColor);
@@ -168,11 +172,11 @@ def play():
         # undo3.grid(row=1, column=3, padx=1, pady=1);
 
     
-    updateSidePanel()
+    updateSidePanel();
 
 
 
-    def updateButtons():
+    def updateButtons(): #updates the board
         #create column a buttons
         a1 = tk.Button(dbframe, image=row1[0], command=lambda: placeButtonClicked("a", 1, row1[0]), font=buttonFont, bg=placeButton1BgColor, fg=placeButton1FgColor);
         a2 = tk.Button(dbframe, image=row2[0], command=lambda: placeButtonClicked("a", 2, row2[0]), font=buttonFont, bg=placeButton2BgColor, fg=placeButton2FgColor);
@@ -421,30 +425,28 @@ def play():
     updateButtons();
 
 
-    def removePiece(letter, number):
+    def removePiece(letter, number): #removes a piece from a place on the board
         places[numbers.index(number)][letters.index(letter)] = none;
         updateButtons();
         
-    def placePiece(letter, number, piece):
+    def placePiece(letter, number, piece): #adds a piece at a certain place
         places[numbers.index(number)][letters.index(letter)] = piece;
         updateButtons();
     
-    def label(text):
+    def label(text): #adds a label at (30, 20)
             var = tk.StringVar();  # method needed to update strings when buttons are clicked
             var.set(text);  # setting the variable var to numStr (puts value in label)
             label = tk.Label(root, textvariable=var, font=labelFont, bg=labelBgColor, fg=labelFgColor);
             label.place(x=30, y=20);  # label is in the window but not the frame
             label.config(text=text)
 
-    def promoteButtonClicked(piece, color): #when a place on the board is clicked
+    def promoteButtonClicked(piece, color): #when the button to promote a pawn is clicked
         global pieceSelected;
         global pieceSelectedLocation;
-        if not pieceSelected:
-            if piece != none:
-                #create label
-                label("Click On A " + color + " Pawn To Promote it \n ");  
-                pieceSelected = piece;
-                pieceSelectedLocation = False;
+        if piece != none:
+            label("Click On A " + color + " Pawn To Promote it \n "); #create label  
+            pieceSelected = piece;
+            pieceSelectedLocation = False;
     
     # def undoButtonClicked(piece): #when a place on the board is clicked
     #     global pieceSelected;
@@ -458,21 +460,21 @@ def play():
         global pieceSelected;
         global pieceSelectedLocation;
         print(letter + ",", number);
-        if not pieceSelected:
-            if piece != none:
+        if not pieceSelected: #if there is not already a selected piece
+            if piece != none: #is the square has a piece in it
                 #create label
                 label(letter+str(number)+" has been selected.\nNow click on the square you want to move this piece to.");  
                 pieceSelected = piece;
                 pieceSelectedLocation = (letter, number);
-        else: 
-            if piece != none:
-                dead.insert(0, piece);
-                print(dead)
-                updateSidePanel()
-            removePiece(letter, number);
-            if pieceSelectedLocation:
+        else: #if a piece hasd been selected
+            # if piece != none:
+            #     dead.insert(0, piece);
+            #     print(dead)
+            #     updateSidePanel()
+            removePiece(letter, number); 
+            if pieceSelectedLocation: 
                 removePiece(pieceSelectedLocation[0], pieceSelectedLocation[1]);
-            else:
+            else: #if the selected piece is a queen to promote a pawn
                 if pieceSelected in promoteWhite:
                     promoteWhite.remove(pieceSelected)
                 elif pieceSelected in promoteBlack:
